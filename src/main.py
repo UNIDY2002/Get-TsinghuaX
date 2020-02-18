@@ -1,15 +1,17 @@
-from helper.interface import Interface
+from helper.interface import instruct
 
-i = Interface('foo', 'bar')  # Do not know how to simulate logging in yet.
+print('Get-TsinghuaX MOOC字幕抓取助手')
+i = instruct()
+
 while True:
     command = input('>>> ')
     try:
-        i.execute(command)
-    except:
-        pass
+        i.exec(command)
+    except Exception as e:
+        print('Error:', e)
 
 # Example:
-# >>> cookie ${your cookies (get them from your browser's developer mode)}  # "Login".
 # >>> gt  # Get the term list.
 # >>> gc ${term id}  # Get the course list.
 # >>> gl ${course id}  # Get the lesson list.
+# >>> get  # Get all the subtitles.
