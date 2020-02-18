@@ -78,7 +78,7 @@ class User:
                         end = data.index('"', start)
                         result = self.__connect('http://tsinghua.xuetangx.com%s/zh' % data[start:end])
                         data = '\n'.join(json.loads(result)['text'])
-                        save("/%s/%s/%s" % (self.term['name'], self.course['name'], title), index, lesson['name'], data)
+                        save("%s/%s/%s" % (self.term['name'], self.course['name'], title), index, lesson['name'], data)
                         if on_end:
                             on_end(lesson)
                     except Exception as e:
