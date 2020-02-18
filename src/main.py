@@ -1,6 +1,5 @@
 from helper.interface import instruct
 
-print('Get-TsinghuaX MOOC字幕抓取助手')
 i = instruct()
 
 while True:
@@ -14,4 +13,4 @@ while True:
 # >>> gt  # Get the term list.
 # >>> gc ${term id}  # Get the course list.
 # >>> gl ${course id}  # Get the lesson list.
-# >>> get  # Get all the subtitles.
+# >>> get . # Get all the subtitles.
