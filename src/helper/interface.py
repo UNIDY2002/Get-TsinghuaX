@@ -112,7 +112,7 @@ cookie  修改cookie''' % version)
     
     获得学期列表之后，你可以继续使用命令gc来获取课程列表。''')
         elif lower == 'gc':
-            print('''gc: gc [学期号]
+            print('''gc: gc 学期号
     对于学期号指定的学期，获取相应的课程列表。
     
     例：
@@ -121,7 +121,7 @@ cookie  修改cookie''' % version)
     
     获得课程列表之后，你可以继续使用命令gl来获取视频目录。''')
         elif lower == 'gl':
-            print('''gl: gl [课程号]
+            print('''gl: gl 课程号
     对于课程号指定的课程，获取相应的课程目录。
     
     例：
@@ -137,7 +137,7 @@ cookie  修改cookie''' % version)
     
     获得视频目录之后，你可以继续使用命令get来下载视频字幕。''')
         elif lower == 'get':
-            print('''get: get [参数片段 ...] 或 get .
+            print('''get: get 参数片段... 或 get .
     下载参数片段列表指定的视频字幕，或一次性下载课程的全部字幕。
     
     说明：
@@ -157,6 +157,8 @@ cookie  修改cookie''' % version)
         elif lower == 'cookie':
             print('''cookie: cookie 字符串
     将cookie设置为指定字符串''')
+        else:
+            print('未找到命令 %s' % command)
 
 
 def instruct() -> Interface:
