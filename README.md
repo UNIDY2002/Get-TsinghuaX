@@ -1,5 +1,8 @@
 # Get-TsinghuaX
 
+[![GitHub release](https://img.shields.io/github/v/release/UNIDY2002/Get-TsinghuaX?include_prereleases)](https://github.com/UNIDY2002/Get-TsinghuaX/releases)
+[![GitHub license](https://img.shields.io/github/license/UNIDY2002/Get-TsinghuaX)](https://github.com/UNIDY2002/Get-TsinghuaX/blob/master/LICENSE)
+
 The subtitle grabber for TsinghuaX MOOC platform.
 
 Chinese-version README follows the English-version.
@@ -20,7 +23,7 @@ In current version, simulated-login is not available, so an alternative method o
 
 To get the cookie to login:
 
-1. Manually login at [http://tsinghua.xuetangx.com/](http://tsinghua.xuetangx.com/) in your browser.
+1. Manually login at [http://tsinghua.xuetangx.com](http://tsinghua.xuetangx.com) in your browser.
 2. Open the developer's tool, and switch to `console` page.
 3. Enter command `document.cookie`.
 
@@ -131,10 +134,6 @@ There is nothing in it yet.
   - First release.
   - Support the core function of grabbing the subtitles, along with term-list and course-list query.
 
-## License
-
-// TODO
-
 ## 中文使用说明
 
 这是Get-TsinghuaX MOOC字幕抓取助手。
@@ -161,7 +160,7 @@ There is nothing in it yet.
 
 获取cookie的步骤如下：
 
-1. 进入[http://tsinghua.xuetangx.com/](http://tsinghua.xuetangx.com/)登录MOOC网站；
+1. 进入[http://tsinghua.xuetangx.com](http://tsinghua.xuetangx.com)登录MOOC网站；
 2. 打开开发者工具，进入`Console`（控制台）页面；
 3. 输入命令`document.cookie`，即可得到cookie值（不含首末引号）。
 
@@ -174,6 +173,8 @@ There is nothing in it yet.
 - `gl`：查看指定课程的视频目录
 - `get`：批量下载指定视频的字幕
 - `cookie`：修改cookie
+- `s`：在字幕文件中搜索指定的字符串
+- `search`：进入/退出搜索模式
 
 你可以在运行时输入`help 命令名称`来查看相应命令的具体用法。
 
