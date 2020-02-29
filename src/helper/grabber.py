@@ -114,7 +114,10 @@ class User:
         :param on_end: the function to call on the end of each download
         :param on_err: the function to call on error of each download
         """
+        unit_count = 0
         for title, lesson_list in self.lessons:
+            title = "%02d. %s" % (unit_count, title)
+            unit_count = unit_count + 1
             for lesson in lesson_list:
                 index = lesson['id']
                 if index in r:
