@@ -11,15 +11,15 @@ Chinese-version README follows the English-version.
 
 ## Usage
 
-### Interactive user interface
+### Command-line interface
 
-Run `main.py` to launch the interactive user interface.
+Run `main.py` to launch the command-line interface.
 
 For Windows users, you can also get the `.exe` file in the [release](https://github.com/UNIDY2002/Get-TsinghuaX/releases) page.
 
 #### Login
 
-In current version, simulated-login is not available, so an alternative method of using cookie to login is applied.
+In current version, simulated-login is not available, so an alternative method of using cookie to login is adopted.
 
 To get the cookie to login:
 
@@ -43,12 +43,18 @@ Commands currently available are listed as below:
   - Get the subtitles as are described in the `param_fragment` list, or get all the subtitles of the specified course.
 - `cookie ${data}`
   - Reset the cookie data.
+- `s ${target}`
+  - Search for the target string in the subtitles.
+- `search`
+  - Enter or exit the "search" mode.
+- `cd ${directory}`
+  - **[EXPERIMENTAL]** Change the searching directory.
 
 Detailed descriptions can be obtained at runtime by entering `help ${command_name}` .
 
 ### Core library
 
-An easy way of getting the core library is simply including the `helper` package in your project.
+An easy way of getting the core library is simply importing the `helper` package in your project.
 
 I might probably upload the package to PyPI later on.
 
@@ -62,26 +68,26 @@ The module related to grabbing data from TsinghuaX.
 
 ```python
 class User:
- |
- | # Context
- |-- terms    # Current term list
- |-- term     # Current term
- |-- courses  # Current course list
- |-- course   # Current course
- |-- lessons  # Current lesson list
- |
- | # Login-related
- |-- cookie   # Defined in __init__
- |
- | # Public methods
- |-- get_terms(self) -> list
- |-- get_courses(self, term_id: int) -> list
- |-- get_lessons(self, course_id: int) -> list
- |-- get_subtitle(self, r: list, on_beg=None, on_end=None, on_err=None)
- |            # on_beg, on_end and on_err serve as callback functions
- |
- | # Private method
- |-- __connect(self, url: str) -> str
+
+    # Context
+    terms       # Current term list
+    term        # Current term
+    courses     # Current course list
+    course      # Current course
+    lessons     # Current lesson list
+
+    # Login-related
+    cookie      # Defined in __init__
+
+    # Public methods
+    get_terms(self) -> list
+    get_courses(self, term_id: int) -> list
+    get_lessons(self, course_id: int) -> list
+    get_subtitle(self, r: list, on_beg=None, on_end=None, on_err=None)
+                # on_beg, on_end and on_err serve as callback functions
+
+    # Private method
+    __connect(self, url: str) -> str
 ```
 
 Documents are available in the source file.
@@ -90,46 +96,63 @@ Documents are available in the source file.
 
 The module related to the interactive user interface.
 
-Each instantiated interface wraps in it a logged-in user.
+Each instantiated interface wraps in it a logged-in user and a local searcher.
 
 **Of course, it is not a necessity that you import this module in your own project.**
 
 ```python
 class Interface:
- |
- |-- user     # Defined in __init__
- |
- |-- exec(self, command: str)
- |
- |-- gt(self)
- |-- gc(self, term_id: int)
- |-- gl(self, course_id: int)
- |-- get(self, r: list = range(0, 1000))
- |-- cookie(self, cookie: str)
 
-h(command: str)
+    user        # Defined in __init__
+
+    exec(self, command: str)
+
+    gt(self)
+    gc(self, term_id: int)
+    gl(self, course_id: int)
+    get(self, r: list = range(0, 1000))
+    cookie(self, cookie: str)
+    s(self, s: str)
+    cd(self, directory: str)
+
+    @staticmethod
+    h(command: str)
 
 instruct() -> Interface
 ```
 
 #### io.py
 
-This module serves as a inner util module.
+The module related to I/O, serving as a inner util module.
 
-Currently, only a method `save(path: str, walk_id: int, name: str, data: str)` is included.
-
-This method creates a file at `path` with the filename of `"%03d. %s.txt" % (walk_id, name)` and writes `data` into it.
+There are currently two methods:
+- `save(path: str, walk_id: int, name: str, data: str)`
+  - Creates a file at `path` with the filename of `"%03d. %s.txt" % (walk_id, name)` and writes `data` into it.
+- `search(path: str, s: str, on_success, on_error)`
+  - Search for `s` in the given `path` (sub-directories included).
 
 #### searcher.py
 
-There is nothing in it yet.
+The module providing methods related to local search.
 
+```python
+class Searcher:
+
+    path        # Current directory
+
+    search(self, s: str, on_success, on_error)
+    cd(self, directory: str) -> bool
+```
 
 ## Dependencies
  - beautifulsoup4
 
 ## Changelog
 
+- v1.0.1
+  - Add support for multi-platform.
+- v1.0.0
+  - Add local search.
 - v0.1.0
   - First release.
   - Support the core function of grabbing the subtitles, along with term-list and course-list query.
@@ -138,17 +161,17 @@ There is nothing in it yet.
 
 这是Get-TsinghuaX MOOC字幕抓取助手。
 
-在这份说明中，我将介绍交互式用户界面的使用方法。至于如何在自己的项目中使用核心库，请参阅[英文说明](#Core-library)。
+在这份说明中，我将介绍命令行交互界面的使用方法。至于如何在自己的项目中使用核心库，请参阅[英文说明](#Core-library)。
 
 ### 开始使用
 
-#### 直接下载可执行文件
+#### 方法一：直接下载可执行文件
 
 [下载页面](https://github.com/UNIDY2002/Get-TsinghuaX/releases)
 
 目前仅支持Windows系统。
 
-#### 执行Python源代码
+#### 方法二：执行Python源代码
 
 运行`main.py`来启动交互式用户界面。
 

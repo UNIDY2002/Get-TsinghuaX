@@ -46,6 +46,10 @@ class User:
         """
         result = self.__connect('http://tsinghua.xuetangx.com/newcloud/api/filter/manager/terms/')
         self.terms = json.loads(result)['list']
+        self.term = None
+        self.courses = None
+        self.course = None
+        self.lessons = None
         return self.terms
 
     def get_courses(self, term_id: int) -> list:
@@ -65,9 +69,12 @@ class User:
         for term in self.terms:
             if term['id'] == term_id:
                 result = self.__connect('http://tsinghua.xuetangx.com/newcloud/api/studentcourse/?termid=%d' % term_id)
-                self.courses = json.loads(result)['results']
                 self.term = term
-        return self.courses
+                self.courses = json.loads(result)['results']
+                self.course = None
+                self.lessons = None
+                return self.courses
+        return []
 
     def get_lessons(self, course_id: int) -> list:
         """
@@ -98,10 +105,9 @@ class User:
                         unit_lessons_parsed.append({'id': walk_id, 'name': lesson_name, 'href': lesson_href})
                         walk_id = walk_id + 1
                     lessons.append((unit_title, unit_lessons_parsed))
-                self.lessons = lessons
                 self.course = course
-                return lessons
-        self.lessons = []
+                self.lessons = lessons
+                return self.lessons
         return []
 
     def get_subtitle(self, r: list, on_beg=None, on_end=None, on_err=None):
