@@ -12,11 +12,7 @@ def save(path: str, walk_id: int, name: str, data: str):
 
 
 def search(path: str, s: str, on_success, on_error):
-    if path == '':
-        search_path = '.'
-    else:
-        search_path = path
-    for root, dirs, files in os.walk(search_path):
+    for root, dirs, files in os.walk(path):
         for filename in files:
             if re.match('^.*\\.txt$', filename):
                 try:

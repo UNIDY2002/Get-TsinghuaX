@@ -112,22 +112,15 @@ class Interface:
                                lambda lesson, e: print('下载失败'))
 
     def s(self, s: str):
-        if self.searcher.path == '':
-            print('正在当前目录下进行搜索...')
-        else:
-            print('正在目录 %s 下进行搜索...' % self.searcher.path)
+        print('正在目录 %s 下进行搜索...' % self.searcher.path)
         self.searcher.search(s,
                              lambda root, filename, line: print(root, filename, line, sep='\n'),
                              lambda root, filename, e: print("打开文件 %s 时发生异常：" % join(root, filename), e))
 
     def cd(self, directory: str):
-        if self.searcher.cd(directory):
-            if self.searcher.path == '':
-                print('当前目录：磁盘根目录')
-            else:
-                print('当前目录：%s' % self.searcher.path)
-        else:
-            print('指定目录不存在。')
+        self.searcher.cd(directory,
+                         lambda path: print('当前目录：%s' % path),
+                         lambda path, e: print('目录切换失败：', e))
 
     @staticmethod
     def h(command: str):

@@ -1,3 +1,5 @@
+import logging
+
 from helper.interface import instruct
 
 i = instruct()
@@ -7,7 +9,7 @@ while True:
     try:
         i.exec(command)
     except Exception as e:
-        print('Error:', e)
+        logging.exception(e)
 
 # Example:
 # >>> gt  # Get the term list.
